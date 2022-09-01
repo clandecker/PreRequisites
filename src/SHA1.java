@@ -23,11 +23,6 @@ public class SHA1 {
 		System.out.println( sha1 );
 		System.out.println();
 
-		// With Apache commons
-		sha1 = org.apache.commons.codec.digest.DigestUtils.sha1Hex( value );
-
-		System.out.println( "The sha1 of \""+ value + "\" is:");
-		System.out.println( sha1 );
 
      }
 }
