@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -22,54 +25,45 @@ public class Blob {
 	
 	
 	private String SHA;
+	private String s;
+	private String st;
 	
-	public Blob(String s) throws IOException {
+	public Blob(String s) throws IOException, NoSuchAlgorithmException {
 		// create new file by telling it where to look "path class" Write to that Path
-		SHA = encryptThisString(newFileString(s));
-		File f= new File(SHA);
-		PrintWriter p = new PrintWriter ("objects/" + f);
-		p.append(newFileString(s));
-		p.close();
+		this.s = s;
+		String string = s;
+		String bReader = "";
+		BufferedReader br = new BufferedReader(new FileReader(s));
+		while (br.ready()) {
+			bReader = bReader + (char)br.read();
+		}
+		st = bReader;
+		String SHA1 = encryptThisString(bReader);
+		SHA = SHA1;
 		
 	}
 	
 	public String getSha () {
 		return SHA;
 	}
-	public static String encryptThisString(String input) {
+	public static String encryptThisString(String input) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
-        try {
+        
             // getInstance() method is called with algorithm SHA-1
             MessageDigest md = MessageDigest.getInstance("SHA-1");
- 
-            // digest() method is called
-            // to calculate message digest of the input string
-            // returned as array of byte
-            byte[] messageDigest = md.digest(input.getBytes());
- 
-            // Convert byte array into signum representation
-            BigInteger no = new BigInteger(1, messageDigest);
- 
-            // Convert message digest into hex value
-            String hashtext = no.toString(16);
- 
-            // Add preceding 0s to make it 32 bit
-            while (hashtext.length() < 32) {
-                hashtext = "0" + hashtext;
-            }
- 
-            // return the HashText
-            return hashtext;
-        }
- 
-        // For specifying wrong message digest algorithms
-        catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
+            md.reset();
+            md.update(input.getBytes("UTF-8"));
+            return new BigInteger (1, md.digest()).toString(16);
     }
-	private String newFileString(String file) throws IOException{
-		Path pathy = Path.of(file);
-		return Files.readString(pathy);
+	private void newFile(String file) throws IOException{
+		Path pathy = Paths.get("Objects/" + SHA + ".txt");
+		try {
+			Files.writeString(pathy, st, StandardCharsets.ISO_8859_1);
+			
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		 Files.readString(pathy);
 	}
 	
 	
