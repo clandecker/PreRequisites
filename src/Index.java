@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public class Index {
 		hashy= new HashMap <String, String>();
 	}
 
-	public void addBlob (String s) throws IOException {
+	public void addBlob (String s) throws IOException, NoSuchAlgorithmException {
 		Blob blobby = new Blob (s);
 		hashy.put(s,blobby.encryptThisString(s));
 //		 File file = new File(outputFilePath);
@@ -46,7 +47,7 @@ public class Index {
 	}
 	
 	
-	public void deleteBlob(String s) throws IOException {
+	public void deleteBlob(String s) throws IOException, NoSuchAlgorithmException {
 		hashy.remove(s);
 		Blob blobby = new Blob (s);
 		File tempFile = new File("myTempFile.txt");

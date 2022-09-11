@@ -3,9 +3,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.NoSuchAlgorithmException;
 
 public class Tester {
-public static void main (String []args)  {
+public static void main (String []args) throws IOException, NoSuchAlgorithmException  {
 //	String a = "Object";
 //	Blob blobby;
 //	try {
@@ -15,12 +16,7 @@ public static void main (String []args)  {
 //		e.printStackTrace();
 //	}
 //	System.out.println( Blob.encryptThisString(a));
-	Path p = Paths.get("Object.txt");
-	try{
-	Files.writeString(p,"Tester", StandardCharsets.ISO_8859_1);
-	} catch(IOException e) {
-		e.printStackTrace();
-	}
-	
+	Blob blobby = new Blob ("Object.txt");
+	blobby.newFile();
 }
 }
