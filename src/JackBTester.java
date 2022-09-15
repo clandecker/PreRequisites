@@ -46,23 +46,29 @@ class JackBTester {
 	}
 
 	@AfterAll
+	//FINISH THIS, DELETE OBJ FOLDER AND INDEX FILE
 	static void tearDownAfterClass() throws Exception {
 		File file= new File("junit.txt");
 		file.delete();
+		
+		File Indexfile=new File("index");
+		Indexfile.delete();
+		
+		File Objectfile=new File("objects");
+		Objectfile.delete();
 	}
 
 	@Test
-	//ALL THINGS TESTING INDEX DON'T WORK
-		void testIndex() {
+	void testIndex() {
 				
-				Index ind= new Index();
+		Index ind= new Index();
 				
-				File file=new File("index");
-				assertTrue(file.exists());
+		File file=new File("index");
+		assertTrue(file.exists());
 				
-				Path path=Paths.get("objects");
-				assertTrue(Files.exists(path));
-			}
+		Path path=Paths.get("objects");
+		assertTrue(Files.exists(path));
+	}
 	
 	@Test
 	void testBlob() throws IOException, NoSuchAlgorithmException {		
@@ -87,22 +93,42 @@ class JackBTester {
 		ind.addBlob("junit1.txt");
 		ind.addBlob("junit2.txt");
 		
-		//check if files exists (they don't)
+		//creates file obj to check each file (they don't)
 		File file_junit=new File("objects/f85d527604444aa350aa09dfe93baefbd88f804c");//PUT IN SHA1 STRING
 		File file_junit1=new File("objects/6b6ea6dafb08754e3065aeb0250f792a3a677451");//PUT IN SHA1 STRING		
 		File file_junit2=new File("objects/44e2550ac5ccbf014e9b01e5a43ee4395ab86623");//PUT IN SHA1 STRING
+		
+		
+		//checking index lines
+		boolean jBoo=false;
+		boolean j1Boo=false;
+		boolean j2Boo=false;
+		try (BufferedReader br = new BufferedReader(new FileReader("index"))) {
+		    String line;	 
+		    
+		    while ((line = br.readLine()) != null) {
+		       if (line.equals("junit.txt:f85d527604444aa350aa09dfe93baefbd88f804c")) {
+		    	   jBoo=true;
+		       }
+		       else if (line.equals("junit1.txt:6b6ea6dafb08754e3065aeb0250f792a3a677451")){
+		    	   j1Boo=true;	    	   
+		       }
+		       else if (line.equals("junit2.txt:44e2550ac5ccbf014e9b01e5a43ee4395ab86623")) {
+		    	   j2Boo=true;
+		       }
+		    }
+		}
+		//assert that files exit
 		assertTrue(file_junit.exists()&& file_junit1.exists()&& file_junit2.exists());
 		
-		//checks if index file contains correct lines (it doesn't)
-		
-		
-		
-		
+		//asserts that lines in index are correct 
+		assertTrue(jBoo==true && j1Boo==true && j2Boo==true);				
 	}
+	
 	@Test
 	//THIS ISN'T CORRECT
-	/*void testDeleteBlob() throws NoSuchAlgorithmException, IOException {
-		//delets junit
+	void testDeleteBlob() throws NoSuchAlgorithmException, IOException {
+		//deletes junit
 		
 		//check if file doesn't exist
 		File f=new File("objects/f85d527604444aa350aa09dfe93baefbd88f804c");
@@ -122,12 +148,6 @@ class JackBTester {
 		}
 		
 		
-		
-		
-		//also how do u check that a hashmap doesn't have the key in it anymore
-		//also that the file doesn't exist
-		//also that the index file doesn't contain it???
-		
-	}*/
+	}
 
 }
