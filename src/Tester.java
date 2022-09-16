@@ -1,3 +1,5 @@
+
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -18,4 +20,15 @@ public static void main (String []args) throws IOException, NoSuchAlgorithmExcep
 //	System.out.println( Blob.encryptThisString(a));
 	Blob blobby = new Blob ("s");
 }
+}
+
+	public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
+		Blob b = new Blob ("/Users/meeraburghardt/eclipse-workspace/Git PreRequisites/Object.txt");
+	System.out.println(b.encryptThisString("abcdefg"));
+		Index i = new Index();
+		i.init();
+		i.addBlob("/Users/meeraburghardt/eclipse-workspace/Git PreRequisites/Object.txt");
+		i.deleteBlob("/Users/meeraburghardt/eclipse-workspace/Git PreRequisites/Object.txt");
+	}
+
 }
