@@ -129,11 +129,11 @@ class JackBTester {
 	//THIS ISN'T CORRECT
 	void testDeleteBlob() throws NoSuchAlgorithmException, IOException {
 		//deletes junit
+		ind.deleteBlob("junit.txt");
 		
 		//check if file doesn't exist
 		File f=new File("objects/f85d527604444aa350aa09dfe93baefbd88f804c");
-		Index ind=new Index();
-		ind.deleteBlob("junit.txt");
+		Index ind=new Index();		
 		assertTrue(!f.exists());
 		
 		//check if removes line from index
