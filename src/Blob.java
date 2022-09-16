@@ -27,6 +27,7 @@ public class Blob {
 	private String SHA;
 	private String s;
 	private String st;
+	private String FI;
 	
 	public Blob(String s) throws IOException, NoSuchAlgorithmException {
 		// create new file by telling it where to look "path class" Write to that Path
@@ -42,6 +43,12 @@ public class Blob {
 		SHA = SHA1;
 		
 	}
+	
+	private void makeNEWFile(String s) throws IOException {
+		Path newFilePath = Paths.get(s);
+	    Files.createFile(newFilePath);
+	}
+	
 	
 	public String getSha () {
 		return SHA;

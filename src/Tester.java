@@ -16,7 +16,7 @@ public static void main (String []args) throws IOException, NoSuchAlgorithmExcep
 //		e.printStackTrace();
 //	}
 //	System.out.println( Blob.encryptThisString(a));
-	Blob blobby = new Blob ("Object.txt");
+	Blob blobby = new Blob ("Tester.txt");
 	blobby.newFile();
 }
 }

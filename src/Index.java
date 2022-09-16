@@ -1,9 +1,11 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -20,12 +22,21 @@ public class Index {
  private File ob;
  
 	public Index() {
-		File f = new File ("index");
-		fi =f;
-		File objects = new File ("/path/objects");
-		ob = objects;
+		
 		hashy= new HashMap <String, String>();
 	}
+	
+	public void init() throws FileNotFoundException  {
+		File f = new File ("Index.txt");
+		fi =f;
+		PrintWriter pw = new PrintWriter("test/" + f); 
+		pw.append(""); 
+		pw.close(); 
+		File d = new File("test/objects"); 
+		d.mkdir(); 
+		
+	}
+	
 
 	public void addBlob (String s) throws IOException, NoSuchAlgorithmException {
 		Blob blobby = new Blob (s);
