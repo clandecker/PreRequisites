@@ -20,17 +20,11 @@ public class Blob {
 	//Files.writeString (filePathToWrite, stringToWrite, StandardCharSets.ISO_8859_1);
 	//catch (IOException exception
 	//System.out.println("Write failed for " + fileName);
-	//}
-		
-	
-	
+	//}	
 	private String SHA;
 	private String s;
 	private String st;
-<<<<<<< HEAD
 	private String FI;
-=======
->>>>>>> main
 	
 	public Blob(String s) throws IOException, NoSuchAlgorithmException {
 		// create new file by telling it where to look "path class" Write to that Path
@@ -65,11 +59,7 @@ public class Blob {
             md.update(input.getBytes("UTF-8"));
             return new BigInteger (1, md.digest()).toString(16);
     }
-<<<<<<< HEAD
 	public void newFile() throws IOException{
-=======
-	private void newFile(String file) throws IOException{
->>>>>>> main
 		Path pathy = Paths.get("Objects/" + SHA + ".txt");
 		try {
 			Files.writeString(pathy, st, StandardCharsets.ISO_8859_1);
@@ -77,11 +67,7 @@ public class Blob {
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
 		
-=======
-		 Files.readString(pathy);
->>>>>>> main
 	}
 	
 	
